@@ -1,0 +1,77 @@
+﻿@model List<Customer360Clean.Models.Customer>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>البلاك ليست - نظام 360°</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #07090f;
+                font-family: 'Cairo', sans-serif;
+                color: #dde6f0;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 50px auto;
+                padding: 20px;
+            }
+
+            .card {
+                background: #111820;
+                border: 1px solid #1a2535;
+                border-radius: 16px;
+                padding: 25px;
+            }
+
+            .blacklist-item {
+                background: #0d1117;
+                padding: 15px;
+                margin: 10px 0;
+                border-radius: 12px;
+                border-right: 4px solid #f87171;
+            }
+
+            .btn-back {
+                display: inline-block;
+                background: #1d6fea;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                text-decoration: none;
+                margin-top: 20px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>🚫 البلاك ليست (العملاء المحظورين)</h1>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var c in Model)
+                {
+                    <div class="blacklist-item">
+                        <strong>@c.FullName</strong><br />
+                        📞 @c.PhoneNumber
+                    </div>
+                }
+            }
+            else
+            {
+                <p>لا يوجد عملاء محظورين حالياً</p>
+            }
+            <a href="/Dashboard/Index" class="btn-back">🔙 العودة للوحة التحكم</a>
+        </div>
+    </div>
+</body>
+</html>

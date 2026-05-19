@@ -1,0 +1,160 @@
+﻿@model Customer360Clean.Models.Customer360ViewModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نبضة العميل — Customer Pulse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+            /* نفس CSS pulse-preview.html */
+            :root {
+                --bg: #080c10;
+                --card: #0e1520;
+                --border: #1e2d40;
+                --text: #e2eaf4;
+                --muted: #6b8099;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: var(--bg);
+                font-family: 'Cairo', sans-serif;
+                color: var(--text);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                padding: 32px 16px;
+            }
+
+            .wrapper {
+                max-width: 680px;
+                width: 100%;
+            }
+
+            .card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                overflow: hidden;
+            }
+
+            .customer-header {
+                padding: 28px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .avatar {
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(135deg, #1a5bc4, #0d9488);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 22px;
+                font-weight: 900;
+            }
+
+            .pulse-section {
+                padding: 28px;
+            }
+
+            .gauge-track {
+                height: 10px;
+                background: var(--border);
+                border-radius: 99px;
+                overflow: hidden;
+                margin: 15px 0;
+            }
+
+            .gauge-fill {
+                height: 100%;
+                width: 70%;
+                background: linear-gradient(90deg, #059669, #34d399);
+                border-radius: 99px;
+            }
+
+            .info-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                background: var(--border);
+            }
+
+            .info-cell {
+                background: var(--card);
+                padding: 20px;
+                text-align: center;
+            }
+
+            .actions {
+                padding: 20px;
+                display: flex;
+                gap: 10px;
+            }
+
+            .action-btn {
+                flex: 1;
+                padding: 12px;
+                border: 1px solid var(--border);
+                background: transparent;
+                color: var(--text);
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+                .action-btn.primary {
+                    background: #1a5bc4;
+                    border-color: #1a5bc4;
+                    color: white;
+                }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="card">
+            <div class="customer-header">
+                <div class="avatar">@(Model.Customer?.FullName?[0] ?? '?')</div>
+                <div>
+                    <h2>@Model.Customer?.FullName</h2>
+                    <p>رقم العميل: @Model.Customer?.PhoneNumber</p>
+                </div>
+                <div class="status-pill" style="margin-right:auto; background: rgba(16,185,129,0.12); color:#34d399; padding:6px 16px; border-radius:30px;">نشط ✓</div>
+            </div>
+            <div class="pulse-section">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>🫀 نبضة العميل</span>
+                    <span style="font-size: 32px; font-weight: 900; color: #34d399;">70</span>
+                </div>
+                <div class="gauge-track"><div class="gauge-fill" style="width:70%"></div></div>
+                <div class="pulse-note" style="background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.2); color:#34d399; padding:14px; border-radius:12px; margin-top:16px;">
+                    ⚠️ @Model.Tickets.Count شكوى مفتوحة
+                </div>
+            </div>
+            <div class="info-grid">
+                <div class="info-cell"><div class="lbl">الشكاوى المفتوحة</div><div class="val">@Model.Tickets.Count</div></div>
+                <div class="info-cell"><div class="lbl">النشاطات</div><div class="val">@Model.Activities.Count</div></div>
+                <div class="info-cell"><div class="lbl">آخر تفاعل</div><div class="val">@(Model.Activities.Any() ? Model.Activities.Max(a => a.LoginTime).ToString("dd/MM") : "جديد")</div></div>
+            </div>
+            <div class="actions">
+                <button class="action-btn primary" onclick="alert('سيتم إضافة شكوى')">➕ إضافة شكوى</button>
+                <button class="action-btn" onclick="location.href='/Customer/Search'">🔍 بحث جديد</button>
+                <button class="action-btn" onclick="location.href='/Dashboard/Index'">🏠 لوحة التحكم</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

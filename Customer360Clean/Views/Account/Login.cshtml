@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تسجيل الدخول</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: linear-gradient(135deg, #667eea, #764ba2);
+                font-family: 'Cairo', sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            .login-card {
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                width: 350px;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            }
+
+                .login-card h2 {
+                    color: #333;
+                    margin-bottom: 20px;
+                }
+
+                .login-card input {
+                    width: 100%;
+                    padding: 12px;
+                    margin: 10px 0;
+                    border-radius: 30px;
+                    border: 1px solid #ccc;
+                    font-size: 16px;
+                }
+
+                .login-card button {
+                    width: 100%;
+                    padding: 12px;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    border: none;
+                    border-radius: 30px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-top: 10px;
+                }
+
+                    .login-card button:hover {
+                        transform: scale(1.02);
+                    }
+
+            .error {
+                color: #f87171;
+                margin-top: 15px;
+            }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h2>🔐 تسجيل الدخول</h2>
+        <form method="post" action="/Account/Login">
+            <input type="text" name="username" placeholder="اسم المستخدم" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <button type="submit">دخول</button>
+        </form>
+        @if (ViewBag.Error != null)
+        {
+            <div class="error">⚠️ @ViewBag.Error</div>
+        }
+    </div>
+</body>
+</html>

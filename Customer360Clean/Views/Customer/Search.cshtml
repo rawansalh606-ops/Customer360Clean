@@ -1,0 +1,210 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بحث عن عميل - نظام 360°</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                min-height: 100vh;
+            }
+
+            /* ========== القائمة الجانبية ========== */
+            .sidebar {
+                position: fixed;
+                right: 0;
+                top: 0;
+                width: 260px;
+                height: 100%;
+                background: #0d1117;
+                box-shadow: -2px 0 20px rgba(0,0,0,0.3);
+                padding: 30px 0;
+                z-index: 1000;
+            }
+
+                .sidebar .logo {
+                    text-align: center;
+                    padding: 20px;
+                    border-bottom: 1px solid #1a2535;
+                    margin-bottom: 30px;
+                }
+
+                    .sidebar .logo h3 {
+                        color: #667eea;
+                        font-weight: bold;
+                        font-size: 24px;
+                    }
+
+                    .sidebar .logo p {
+                        font-size: 12px;
+                        color: #888;
+                    }
+
+                .sidebar .nav-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 12px 25px;
+                    margin: 5px 0;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: #ccc;
+                    font-size: 14px;
+                }
+
+                    .sidebar .nav-item:hover {
+                        background: #1a2535;
+                        border-right: 4px solid #667eea;
+                        color: white;
+                    }
+
+            /* ========== المحتوى الرئيسي ========== */
+            .main-content {
+                margin-right: 260px;
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 40px;
+            }
+
+            /* ========== بطاقة البحث ========== */
+            .search-card {
+                background: white;
+                padding: 40px;
+                border-radius: 25px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                width: 400px;
+                text-align: center;
+                transition: transform 0.3s ease;
+            }
+
+                .search-card:hover {
+                    transform: translateY(-5px);
+                }
+
+                .search-card h2 {
+                    color: #333;
+                    margin-bottom: 10px;
+                }
+
+                .search-card p {
+                    color: #666;
+                    margin-bottom: 30px;
+                    font-size: 14px;
+                }
+
+                .search-card input {
+                    width: 100%;
+                    padding: 12px;
+                    margin: 10px 0;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 50px;
+                    font-size: 16px;
+                    box-sizing: border-box;
+                    text-align: center;
+                }
+
+                    .search-card input:focus {
+                        border-color: #667eea;
+                        outline: none;
+                    }
+
+                .search-card button {
+                    width: 100%;
+                    padding: 12px;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    margin-top: 10px;
+                }
+
+                    .search-card button:hover {
+                        transform: scale(1.02);
+                    }
+
+            .icon {
+                font-size: 70px;
+                margin-bottom: 20px;
+            }
+
+            .alert {
+                margin-top: 15px;
+                padding: 10px;
+                background: #f8d7da;
+                color: #721c24;
+                border-radius: 50px;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة الجانبية -->
+    <div class="sidebar">
+        <div class="logo">
+            <h3>360°</h3>
+            <p>Customer View</p>
+        </div>
+        <a href="/Dashboard/Index" class="nav-item">
+            <span>🏠</span>
+            <span>لوحة التحكم</span>
+        </a>
+        <a href="/Customer/Search" class="nav-item" style="background:#1a2535; color:white;">
+            <span>🔍</span>
+            <span>بحث</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span>📋</span>
+            <span>الشكاوي</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span>📊</span>
+            <span>التقارير</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span>⭐</span>
+            <span>عملاء مميزين</span>
+        </a>
+        <a href="#" class="nav-item">
+            <span>🚫</span>
+            <span>بلاك ليست</span>
+        </a>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+        <div class="search-card">
+            <div class="icon">👤</div>
+            <h2>رؤية العميل الشاملة</h2>
+            <p>360° Customer View</p>
+            <form method="post" asp-action="Search">
+                <input type="tel" name="phone" placeholder="📱 أدخل رقم الجوال" required>
+                <button type="submit">🔍 بحث عن العميل</button>
+            </form>
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert">
+                    ⚠️ @ViewBag.Error
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

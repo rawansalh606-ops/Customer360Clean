@@ -1,0 +1,375 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم – نظام 360°</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+            :root {
+                --bg: #07090f;
+                --surface: #0d1117;
+                --card: #111820;
+                --border: #1a2535;
+                --accent: #1d6fea;
+                --text: #dde6f0;
+                --muted: #607590;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: var(--bg);
+                font-family: 'Cairo', sans-serif;
+                color: var(--text);
+                display: flex;
+            }
+            /* ===== القائمة الرئيسية (اليسار) ===== */
+            .sidebar {
+                width: 240px;
+                background: var(--surface);
+                border-left: 1px solid var(--border);
+                position: fixed;
+                right: 0;
+                top: 0;
+                height: 100vh;
+            }
+
+            .logo-area {
+                padding: 26px 20px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .logo-icon {
+                width: 42px;
+                height: 42px;
+                background: linear-gradient(135deg, #1d6fea, #0d9488);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 12px;
+            }
+
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px 12px;
+                border-radius: 10px;
+                cursor: pointer;
+                font-size: 13.5px;
+                color: var(--muted);
+                text-decoration: none;
+            }
+
+                .nav-item:hover {
+                    background: rgba(255,255,255,0.04);
+                    color: var(--text);
+                }
+
+                .nav-item.active {
+                    background: rgba(29,111,234,0.12);
+                    color: #3d8ef5;
+                }
+            /* ===== المحتوى الرئيسي ===== */
+            .main {
+                margin-right: 240px;
+                flex: 1;
+            }
+
+            .topbar {
+                background: rgba(13,17,23,0.85);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid var(--border);
+                padding: 0 28px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .content {
+                padding: 28px;
+            }
+            /* ===== بطاقة البحث ===== */
+            .search-hero {
+                background: linear-gradient(135deg, #0d1a2e, #0d1117);
+                border: 1px solid #1a2535;
+                border-radius: 18px;
+                padding: 32px;
+                margin-bottom: 24px;
+            }
+
+            .hero-label {
+                font-size: 11px;
+                color: #3d8ef5;
+                margin-bottom: 8px;
+            }
+
+            .search-hero h2 {
+                font-size: 22px;
+                font-weight: 900;
+            }
+
+            .search-row {
+                display: flex;
+                gap: 10px;
+                max-width: 520px;
+                margin-top: 20px;
+            }
+
+            .s-input {
+                flex: 1;
+                background: rgba(255,255,255,0.05);
+                border: 1px solid #1a2535;
+                border-radius: 12px;
+                padding: 13px 18px;
+                color: white;
+                font-size: 15px;
+            }
+
+            .btn {
+                background: #1d6fea;
+                border: none;
+                border-radius: 12px;
+                padding: 13px 26px;
+                color: white;
+                font-weight: 700;
+                cursor: pointer;
+            }
+            /* ===== بطاقات الإحصائيات ===== */
+            .kpi-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+                margin-bottom: 24px;
+            }
+
+            .kpi {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                padding: 20px;
+            }
+
+            .kpi-val {
+                font-size: 30px;
+                font-weight: 900;
+            }
+
+            .kpi-label {
+                font-size: 12px;
+                color: var(--muted);
+                margin-top: 10px;
+            }
+            /* ===== الجدول + القائمة الجانبية ===== */
+            .dashboard-grid {
+                display: grid;
+                grid-template-columns: 1fr 340px;
+                gap: 20px;
+                margin-top: 20px;
+            }
+            /* الجدول */
+            .table-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                overflow: hidden;
+            }
+
+            .card-head {
+                padding: 18px 22px;
+                border-bottom: 1px solid var(--border);
+                display: flex;
+                justify-content: space-between;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            th, td {
+                padding: 13px 16px;
+                text-align: right;
+                border-bottom: 1px solid rgba(26,37,53,0.6);
+            }
+
+            .tag {
+                display: inline-flex;
+                padding: 3px 10px;
+                border-radius: 20px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+
+            .tag-y {
+                background: rgba(234,179,8,0.1);
+                color: #facc15;
+            }
+            /* القائمة الجانبية اليمنى */
+            .side-card {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                padding: 20px;
+            }
+
+            .gauge-track {
+                height: 10px;
+                background: #1a2535;
+                border-radius: 99px;
+                overflow: hidden;
+                margin: 15px 0 8px 0;
+            }
+
+            .gauge-fill {
+                height: 100%;
+                width: 72%;
+                background: linear-gradient(90deg, #d97706, #facc15);
+                border-radius: 99px;
+            }
+
+            .alert-box {
+                background: rgba(234,179,8,0.1);
+                border: 1px solid rgba(234,179,8,0.2);
+                border-radius: 12px;
+                padding: 12px;
+                margin: 15px 0;
+                color: #facc15;
+            }
+
+            .activity-item {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 15px;
+            }
+
+            .dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-top: 5px;
+            }
+
+            .activity-text {
+                font-size: 13px;
+            }
+
+            .activity-time {
+                font-size: 11px;
+                color: var(--muted);
+            }
+    </style>
+</head>
+<body>
+
+    <!-- القائمة الرئيسية (اليسار) -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo-icon">🏢</div>
+            <h1>نظام إدارة العملاء</h1>
+            <span>Customer 360° View</span>
+        </div>
+        <nav style="padding: 16px 12px;">
+            <a href="/Dashboard/Complaints" class="nav-item">📋 الشكاوى</a>
+            <a href="/Dashboard/Reports" class="nav-item">📊 التقارير</a>
+            <a href="/Dashboard/VIPCustomers" class="nav-item">⭐ عملاء مميزين</a>
+            <a href="/Dashboard/Blacklist" class="nav-item">🚫 بلاك ليست</a>
+        </nav>
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main">
+        <div class="topbar">
+            <div><h2>لوحة التحكم الرئيسية</h2></div>
+            <button class="btn" style="padding:8px 16px;">📤 تصدير</button>
+        </div>
+
+        <div class="content">
+            <!-- قسم البحث -->
+            <div class="search-hero">
+                <div class="hero-label">🫀 نبضة العميل — Customer Pulse</div>
+                <h2>ابحث عن عميل</h2>
+                <p>أدخل رقم العميل لعرض بياناته الكاملة ونبضته الآني</p>
+                <div class="search-row">
+                    <input class="s-input" type="text" id="phoneInput" placeholder="رقم العميل — مثال: 0501234567">
+                    <button class="btn" onclick="searchCustomer()">🔍 بحث فوري</button>
+                </div>
+            </div>
+
+            <!-- الإحصائيات -->
+            <div class="kpi-grid">
+                <div class="kpi"><div class="kpi-val">@ViewBag.TotalCustomers</div><div class="kpi-label">إجمالي العملاء</div></div>
+                <div class="kpi"><div class="kpi-val" style="color:#4ade80">@ViewBag.ActiveCustomers</div><div class="kpi-label">عملاء نشطون</div></div>
+                <div class="kpi"><div class="kpi-val" style="color:#f87171">@ViewBag.ComplaintsCount</div><div class="kpi-label">الشكاوى</div></div>
+                <div class="kpi"><div class="kpi-val" style="color:#facc15">@ViewBag.OpenTickets</div><div class="kpi-label">تذاكر مفتوحة</div></div>
+            </div>
+
+            <!-- الجدول + القائمة الجانبية -->
+            <div class="dashboard-grid">
+                <!-- الجدول -->
+                <div class="table-card">
+                    <div class="card-head"><h3>⚠️ الشكاوى العاجلة</h3><span style="color:#3d8ef5; cursor:pointer;">عرض الكل ←</span></div>
+                    <table>
+                        <thead>
+                            <tr><th>العميل</th><th>الموضوع</th><th>الأيام</th><th>الحالة</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (ViewBag.LatestComplaints != null)
+                            {
+                                @foreach (var complaint in ViewBag.LatestComplaints)
+                                {
+                                    <tr>
+                                        <td><b>@complaint.CustomerName</b><br /><small style="color:#607590;">@complaint.CustomerPhone</small></td>
+                                        <td>@complaint.Description</td>
+                                        <td>@complaint.DaysOld يوم</td>
+                                        <td><span class="tag tag-y">@complaint.Status</span></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- القائمة الجانبية اليمنى -->
+                <div class="side-card">
+                    <h4 style="margin-bottom: 15px;">🫀 آخر عميل تم البحث عنه</h4>
+                    <div style="text-align: center;">
+                        <div style="color: #607590;">محمد العلي — 0501234567</div>
+                        <div style="font-size: 48px; font-weight: 900; color: #4ade80;">72</div>
+                    </div>
+                    <div class="gauge-track"><div class="gauge-fill"></div></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; color: #607590; margin-bottom: 15px;">
+                        <span>0 خطر</span><span>متوسط</span><span>100 ممتاز</span>
+                    </div>
+                    <div class="alert-box">
+                        <div style="font-weight: bold;">⚠️ متابعة عاجلة</div>
+                        <div style="font-size: 12px; margin-top: 5px;">عميل مستقر – لكن لديه شكوى مفتوحة منذ 12 يوم، يحتاج متابعة عاجلة</div>
+                    </div>
+                    <h4 style="color: #607590; font-size: 13px; margin: 15px 0 10px;">آخر الأنشطة</h4>
+                    <div class="activity-item"><div class="dot" style="background: #f87171;"></div><div><div class="activity-text">شكوى جديدة من علي الشمري</div><div class="activity-time">منذ 20 دقيقة</div></div></div>
+                    <div class="activity-item"><div class="dot" style="background: #4ade80;"></div><div><div class="activity-text">تم إغلاق محضر فاطمة الحربي</div><div class="activity-time">منذ ساعة</div></div></div>
+                    <div class="activity-item"><div class="dot" style="background: #93c5fd;"></div><div><div class="activity-text">تقرير شهري مايو جاهز</div><div class="activity-time">منذ 3 ساعات</div></div></div>
+                    <div class="activity-item"><div class="dot" style="background: #facc15;"></div><div><div class="activity-text">تحديث بيانات خالد المالكي</div><div class="activity-time">أمس الساعة 4:30</div></div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+            function searchCustomer() {
+                const phone = document.getElementById('phoneInput').value;
+                if (phone) window.location.href = '/Customer/Search?phone=' + encodeURIComponent(phone);
+            }
+    </script>
+</body>
+</html>

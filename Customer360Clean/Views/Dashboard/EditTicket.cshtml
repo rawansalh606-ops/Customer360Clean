@@ -1,0 +1,106 @@
+﻿@model Customer360Clean.Models.Ticket
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تعديل التذكرة</title>
+    <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #07090f;
+                font-family: 'Cairo', sans-serif;
+                color: #dde6f0;
+            }
+
+            .container {
+                max-width: 600px;
+                margin: 50px auto;
+                padding: 20px;
+            }
+
+            .card {
+                background: #111820;
+                border: 1px solid #1a2535;
+                border-radius: 16px;
+                padding: 25px;
+            }
+
+            h1 {
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 5px;
+                color: #607590;
+            }
+
+            input, select, textarea {
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #1a2535;
+                background: #0d1117;
+                color: white;
+            }
+
+            button {
+                background: #1d6fea;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            .btn-back {
+                display: inline-block;
+                background: #6c757d;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                text-decoration: none;
+                margin-left: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>✏️ تعديل التذكرة</h1>
+            <form method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label>نوع التذكرة</label>
+                    <input asp-for="TicketType" />
+                </div>
+                <div class="form-group">
+                    <label>الوصف</label>
+                    <textarea asp-for="Description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>الحالة</label>
+                    <select asp-for="Status">
+                        <option>Open</option>
+                        <option>Closed</option>
+                    </select>
+                </div>
+                <button type="submit">💾 حفظ التغييرات</button>
+                <a href="/Dashboard/Complaints" class="btn-back">🔙 إلغاء</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
